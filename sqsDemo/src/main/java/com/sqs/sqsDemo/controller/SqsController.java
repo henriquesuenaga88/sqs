@@ -1,5 +1,6 @@
-package com.sqs.sqsDemo;
+package com.sqs.sqsDemo.controller;
 
+import com.sqs.sqsDemo.old.SqsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -7,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/sqs")
+@RequestMapping("/queue")
 public class SqsController {
 
     @Autowired

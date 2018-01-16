@@ -3,6 +3,7 @@ package com.sqs.sqsDemo;
 import com.amazonaws.AmazonClientException;
 import com.amazonaws.AmazonServiceException;
 import com.amazonaws.auth.AWSCredentials;
+import com.amazonaws.auth.EnvironmentVariableCredentialsProvider;
 import com.amazonaws.auth.profile.ProfileCredentialsProvider;
 import com.amazonaws.regions.Regions;
 import com.amazonaws.services.sqs.AmazonSQS;
@@ -21,9 +22,12 @@ public class Teste {
 
     public static void main(String[] args) throws Exception {
 
+        final String queuedName = "Rafiel2";
+        final String myMessage = "Americana's Owner.";
         AWSCredentials credentials = null;
         try {
-            credentials = new ProfileCredentialsProvider().getCredentials();
+//            credentials = new ProfileCredentialsProvider().getCredentials();
+            credentials = new EnvironmentVariableCredentialsProvider().getCredentials();
         } catch (Exception e) {
             throw new AmazonClientException(
                     "Cannot load the credentials from the credential profiles file. " +
@@ -33,7 +37,7 @@ public class Teste {
         }
 
         AmazonSQS sqs = AmazonSQSClientBuilder.standard()
-                .withRegion(Regions.US_WEST_2)
+                .withRegion(Regions.US_EAST_2)
                 .build();
 
         System.out.println("===========================================");
@@ -43,7 +47,7 @@ public class Teste {
         try {
             // Create a queue
             System.out.println("Creating a new SQS queue called MyQueue.\n");
-            CreateQueueRequest createQueueRequest = new CreateQueueRequest("MyQueue");
+            CreateQueueRequest createQueueRequest = new CreateQueueRequest(queuedName);
             String myQueueUrl = sqs.createQueue(createQueueRequest).getQueueUrl();
 
             // List queues
@@ -55,7 +59,7 @@ public class Teste {
 
             // Send a message
             System.out.println("Sending a message to MyQueue.\n");
-            sqs.sendMessage(new SendMessageRequest(myQueueUrl, "This is my message text."));
+            sqs.sendMessage(new SendMessageRequest(myQueueUrl, myMessage));
 
             // Receive messages
             System.out.println("Receiving messages from MyQueue.\n");
