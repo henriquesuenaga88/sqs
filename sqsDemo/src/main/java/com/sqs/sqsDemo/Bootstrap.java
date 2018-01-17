@@ -16,7 +16,7 @@ import org.springframework.jms.support.converter.MessageType;
 import javax.jms.ConnectionFactory;
 
 @EnableAutoConfiguration
-@ComponentScan(basePackages = "com.queue.sqsDemo")
+@ComponentScan(basePackages = "com.sqs.sqsDemo")
 @SpringBootApplication
 public class Bootstrap {
 

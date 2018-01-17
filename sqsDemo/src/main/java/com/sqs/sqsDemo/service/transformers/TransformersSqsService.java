@@ -7,14 +7,17 @@ import org.springframework.stereotype.Service;
 @Service
 public class TransformersSqsService {
 
+    public static final String QUEUE = "transformers";
+
     @Autowired
-    private QueueService queue;
+    private QueueService queueService;
 
-    public void doSomething() {
+    public void sendMessage(String message) {
+        queueService.send(QUEUE, message);
+    }
 
-        queue.send("blabla", "Conteudo");
-
-        queue.read("blabla");
+    public String readMessages() {
+        return queueService.read(QUEUE);
     }
 
 }
